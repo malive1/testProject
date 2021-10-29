@@ -6,6 +6,7 @@ import com.example.testProject.entity.DtoUser;
 import com.example.testProject.entity.ResultsRequests;
 import com.example.testProject.service.ServiceValidate;
 import com.example.testProject.service.WorkService;
+import com.example.testProject.utils.Utils;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +28,12 @@ public class MainController {
 private final WorkService workService;
 
     private final ServiceValidate serviceValidate;
+    private final Utils utils;
 
-    public MainController(WorkService workService, ServiceValidate serviceValidate) {
+    public MainController(WorkService workService, ServiceValidate serviceValidate, Utils utils) {
         this.workService = workService;
         this.serviceValidate = serviceValidate;
+        this.utils = utils;
     }
 
     /**
@@ -45,9 +48,14 @@ private final WorkService workService;
         LinkedList<ResultsRequests> checkInfo = serviceValidate.validateDtoObject(dtoUser);
         infoValidate.setInfo(serviceValidate.validateDtoObject(dtoUser));
 
+
         if(checkInfo.size()>0){
+
+            workService.addValidInfo(dtoUser,utils.listAggInfo((LinkedList<ResultsRequests>) infoValidate.getInfo()));
+
             return new ResponseEntity<DtoListValidate>(infoValidate, HttpStatus.BAD_REQUEST);
         }else{
+
         workService.addNewUser(dtoUser);}
 
 return new ResponseEntity<DtoListValidate>(infoValidate, HttpStatus.OK);

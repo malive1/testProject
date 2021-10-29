@@ -60,7 +60,7 @@ public class ErrorService {
 
         System.out.println("test ->>> "+exception.getClass());
 
-        workService.addValidInfo(exception.getLocalizedMessage());
+        workService.addErrValidInfo(exception.getLocalizedMessage());
         return new ResponseEntity<>("ERROR", HttpStatus.BAD_REQUEST);
     }
 

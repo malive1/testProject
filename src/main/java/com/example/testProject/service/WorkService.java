@@ -48,20 +48,14 @@ public class WorkService {
         return actualList;
     }
 
+
+
     /**
      * Add new user.
      * @param inUser - DtoUser object
      */
     public void addNewUser(DtoUser inUser){
-
-        //clear start info in result requests
-         if((resultsRequests.size()>=1) && (resultsRequests.getFirst().getInputData().equals("EMPTY")))
-         {
-             resultsRequests.removeFirst();
-         }
-
-
-
+        refreshHistoryEventIfo();
         User usrTmp = new User();
         usrTmp.setEmail(inUser.getEmail());
         usrTmp.setName(inUser.getName());
@@ -75,8 +69,31 @@ public class WorkService {
         resultsRequests.add(new ResultsRequests(inUser.toString(),"Регистрация успешна."));
     }
 
-public void addValidInfo(String inInfo){
+    /**
+     * Add info catched exeptions from request validate
+     * @param inInfo - error informations
+     */
+    public void addErrValidInfo(String inInfo){
     resultsRequests.add(new ResultsRequests("ERROR",inInfo));
 }
+
+    /**
+     * Add validate info. Check input dao object fields.
+     * @param inDao - input dao
+     * @param inInfo - store validation  info
+     */
+    public void addValidInfo(DtoUser inDao,String inInfo){
+        resultsRequests.add(new ResultsRequests(inDao.toString(),inInfo));
+    }
+
+    public void refreshHistoryEventIfo(){
+
+        //clear start info in result requests
+        if((resultsRequests.size()>=1) && (resultsRequests.getFirst().getInputData().equals("EMPTY")))
+        {
+            resultsRequests.removeFirst();
+        }
+
+    }
 
 }
