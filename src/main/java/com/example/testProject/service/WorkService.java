@@ -20,12 +20,14 @@ import java.util.List;
 public class WorkService {
     private LinkedList<ResultsRequests> resultsRequests;
     private LinkedList<User> listUser;
-
+    private final ServiceValidate serviceValidate;
     /**
      * Default constructor.
      * Init results list.
+     * @param serviceValidate
      */
-    public WorkService(){
+    public WorkService(ServiceValidate serviceValidate){
+        this.serviceValidate = serviceValidate;
         resultsRequests = new LinkedList<>();
         listUser = new LinkedList<>();
         resultsRequests.add(new ResultsRequests("EMPTY","Ни один пользователь не зарегистрирован."));
@@ -53,19 +55,21 @@ public class WorkService {
      * @param inUser - DtoUser object
      */
     public void addNewUser(DtoUser inUser){
-System.out.println("-----");
+
         //clear start info in result requests
          if((resultsRequests.size()>=1) && (resultsRequests.getFirst().getInputData().equals("EMPTY")))
          {
              resultsRequests.removeFirst();
          }
 
-         //check passwords
-        if(!inUser.getPassword().equals(inUser.getCheckPassword()))
-        {
-            resultsRequests.add(new ResultsRequests(inUser.toString(),"Пароли не совпадают."));
-            return;
-        }
+        LinkedList<ResultsRequests> checkInfo = serviceValidate.validateDtoObject(inUser);
+        resultsRequests.addAll(checkInfo);
+
+         if(checkInfo.size()>0)
+         {
+             System.out.println(checkInfo.getFirst());
+         }
+
 
         User usrTmp = new User();
         usrTmp.setEmail(inUser.getEmail());

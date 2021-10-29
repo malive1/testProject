@@ -36,7 +36,8 @@ private final WorkService workService;
      */
     @PostMapping(value = "/addUser", consumes = "application/json"/*,produces = "application/json"*/)
     @SneakyThrows({org.springframework.http.converter.HttpMessageNotReadableException.class})
-    public ResponseEntity<String> addUser(@RequestBody @Valid DtoUser dtoUser){
+    public ResponseEntity<String> addUser(@Validated @RequestBody  DtoUser dtoUser){
+
         workService.addNewUser(dtoUser);
 return new ResponseEntity<>("OK", HttpStatus.OK);
     }
