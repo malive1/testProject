@@ -25,7 +25,7 @@ import java.util.LinkedList;
 @Validated
 @RequestMapping("/test/service")
 public class MainController {
-private final WorkService workService;
+    private final WorkService workService;
 
     private final ServiceValidate serviceValidate;
     private final Utils utils;
@@ -38,35 +38,38 @@ private final WorkService workService;
 
     /**
      * Add new user
+     *
      * @param dtoUser - json data for dto object
      * @return - state
      */
-    @PostMapping(value = "/addUser", consumes = "application/json",produces = "application/json")
+    @PostMapping(value = "/addUser", consumes = "application/json", produces = "application/json")
     @SneakyThrows({org.springframework.http.converter.HttpMessageNotReadableException.class})
-    public ResponseEntity<DtoListValidate> addUser(@Validated @RequestBody  DtoUser dtoUser){
+    public ResponseEntity<DtoListValidate> addUser(@Validated @RequestBody DtoUser dtoUser) {
         DtoListValidate infoValidate = new DtoListValidate();
         LinkedList<ResultsRequests> checkInfo = serviceValidate.validateDtoObject(dtoUser);
         infoValidate.setInfo(serviceValidate.validateDtoObject(dtoUser));
 
 
-        if(checkInfo.size()>0){
+        if (checkInfo.size() > 0) {
 
-            workService.addValidInfo(dtoUser,utils.listAggInfo((LinkedList<ResultsRequests>) infoValidate.getInfo()));
+            workService.addValidInfo(dtoUser, utils.listAggInfo((LinkedList<ResultsRequests>) infoValidate.getInfo()));
 
             return new ResponseEntity<DtoListValidate>(infoValidate, HttpStatus.BAD_REQUEST);
-        }else{
+        } else {
 
-        workService.addNewUser(dtoUser);}
+            workService.addNewUser(dtoUser);
+        }
 
-return new ResponseEntity<DtoListValidate>(infoValidate, HttpStatus.OK);
+        return new ResponseEntity<DtoListValidate>(infoValidate, HttpStatus.OK);
     }
 
     /**
      * Get list this informations
+     *
      * @return - JSON list<String>
      */
     @GetMapping(value = "/getInfo", produces = "application/json")
-    public ResponseEntity<DtoInfoList> getInfo(){
+    public ResponseEntity<DtoInfoList> getInfo() {
         DtoInfoList info = new DtoInfoList();
         info.setListInfo(workService.getInfo());
         return new ResponseEntity<>(info, HttpStatus.OK);

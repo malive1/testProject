@@ -50,15 +50,16 @@ public class ErrorService {
     }*/
 
     /**
-     *Work exeption from REST
+     * Work exeption from REST
+     *
      * @param exception - Exception
      */
     @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> processException(org.springframework.http.converter.HttpMessageNotReadableException exception)  {
+    public ResponseEntity<String> processException(org.springframework.http.converter.HttpMessageNotReadableException exception) {
 
 
-        System.out.println("test ->>> "+exception.getClass());
+        System.out.println("test ->>> " + exception.getClass());
 
         workService.addErrValidInfo(exception.getLocalizedMessage());
         return new ResponseEntity<>("ERROR", HttpStatus.BAD_REQUEST);

@@ -16,19 +16,19 @@ import javax.validation.constraints.Pattern;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
-     String surname;
+    String surname;
 
-     String name;
+    String name;
 
-     String middleName;
+    String middleName;
 
-     String phone;
+    String phone;
 
-     String email;
+    String email;
 
-     char[] password;
+    char[] password;
 
-     char[] checkPassword;
+    char[] checkPassword;
 
 
 }

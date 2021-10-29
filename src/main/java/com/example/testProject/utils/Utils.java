@@ -16,7 +16,14 @@ import java.util.stream.Collectors;
  */
 @Service
 public class Utils {
-    public String listAggInfo(LinkedList<ResultsRequests> inList){
+
+    /**
+     * Get string value fron validate events list.
+     *
+     * @param inList - events list
+     * @return - result string
+     */
+    public String listAggInfo(LinkedList<ResultsRequests> inList) {
         String rez = "";
         Iterable<String> listRez = Iterables.transform(inList,
                 new Function<ResultsRequests, String>() {
@@ -26,9 +33,9 @@ public class Utils {
                 });
 
         List<String> actualList = Lists.newArrayList(listRez);
-        rez  = actualList.stream()
+        rez = actualList.stream()
                 .map(n -> String.valueOf(n))
-                .collect(Collectors.joining("-", "{", "}"));
+                .collect(Collectors.joining(";", "", ""));
         return rez;
     }
 }
