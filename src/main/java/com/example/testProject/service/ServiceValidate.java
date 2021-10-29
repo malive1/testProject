@@ -38,16 +38,16 @@ public class ServiceValidate {
         }
 
         //check email
-        Matcher matcher=EMAIL_PATTERN.matcher(checkObject.getEmail());
-       if(!matcher.matches()){resultsRequests.add(new ResultsRequests("MAIL","Неверный формат почты."));}
+        Matcher matcherEmail=EMAIL_PATTERN.matcher(checkObject.getEmail());
+       if(!matcherEmail.matches()){resultsRequests.add(new ResultsRequests("MAIL","Неверный формат почты."));}
 
        //Check Name
         Matcher matcherName = FIO_PATTERN.matcher(checkObject.getName());
-        if(!matcher.matches()){resultsRequests.add(new ResultsRequests("NAME","Имя не соответсвует парметрам."));}
+        if(!matcherName.matches()){resultsRequests.add(new ResultsRequests("NAME","Имя не соответсвует парметрам."));}
 
         //Check Surname
         Matcher matcherSurname = FIO_PATTERN.matcher(checkObject.getSurname());
-        if(!matcher.matches()){resultsRequests.add(new ResultsRequests("SURNAME","Фамилия не соответсвует парметрам."));}
+        if(!matcherSurname.matches()){resultsRequests.add(new ResultsRequests("SURNAME","Фамилия не соответсвует парметрам."));}
 
         //Check MiddleName
         Matcher matcherMiddleName = FIO_PATTERN.matcher(checkObject.getMiddleName());

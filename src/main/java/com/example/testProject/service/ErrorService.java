@@ -60,8 +60,8 @@ public class ErrorService {
 
 
         System.out.println("test ->>> " + exception.getClass());
-
-        workService.addErrValidInfo(exception.getLocalizedMessage());
+        workService.addErrValidInfo("Не инициализированная переменная (отсутствует поле): "+ exception.getLocalizedMessage());
+        //workService.addErrValidInfo(exception.getLocalizedMessage());
         return new ResponseEntity<>("ERROR", HttpStatus.BAD_REQUEST);
     }
 

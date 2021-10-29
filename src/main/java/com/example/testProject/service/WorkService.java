@@ -95,7 +95,7 @@ public class WorkService {
     public void refreshHistoryEventIfo() {
 
         //clear start info in result requests
-        if ((resultsRequests.size() >= 1) && (resultsRequests.getFirst().getInputData().equals("EMPTY"))) {
+        if ((resultsRequests.size() >= 1) && (resultsRequests.getFirst().getValueKeyData().equals("EMPTY"))) {
             resultsRequests.removeFirst();
         }
 
