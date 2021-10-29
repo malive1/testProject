@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Validated
 public class DtoUser {
     @NonNull
     @Pattern(regexp = "\\p{L}+", message = "Только буквы.")

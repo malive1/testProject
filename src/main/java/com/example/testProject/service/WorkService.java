@@ -53,11 +53,11 @@ public class WorkService {
      * @param inUser - DtoUser object
      */
     public void addNewUser(DtoUser inUser){
-
+System.out.println("-----");
         //clear start info in result requests
-         if((resultsRequests.size()==1) && (resultsRequests.getFirst().getInputData().equals("EMPTY")))
+         if((resultsRequests.size()>=1) && (resultsRequests.getFirst().getInputData().equals("EMPTY")))
          {
-             resultsRequests.clear();
+             resultsRequests.removeFirst();
          }
 
          //check passwords
