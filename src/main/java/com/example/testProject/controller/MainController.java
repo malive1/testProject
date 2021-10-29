@@ -1,17 +1,18 @@
 package com.example.testProject.controller;
 
 import com.example.testProject.entity.DtoInfoList;
+import com.example.testProject.entity.DtoListValidate;
 import com.example.testProject.entity.DtoUser;
+import com.example.testProject.entity.ResultsRequests;
+import com.example.testProject.service.ServiceValidate;
 import com.example.testProject.service.WorkService;
-import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.LinkedList;
 
 
 /**
@@ -25,8 +26,11 @@ import javax.validation.Valid;
 public class MainController {
 private final WorkService workService;
 
-    public MainController(WorkService workService) {
+    private final ServiceValidate serviceValidate;
+
+    public MainController(WorkService workService, ServiceValidate serviceValidate) {
         this.workService = workService;
+        this.serviceValidate = serviceValidate;
     }
 
     /**
@@ -34,12 +38,19 @@ private final WorkService workService;
      * @param dtoUser - json data for dto object
      * @return - state
      */
-    @PostMapping(value = "/addUser", consumes = "application/json"/*,produces = "application/json"*/)
+    @PostMapping(value = "/addUser", consumes = "application/json",produces = "application/json")
     @SneakyThrows({org.springframework.http.converter.HttpMessageNotReadableException.class})
-    public ResponseEntity<String> addUser(@Validated @RequestBody  DtoUser dtoUser){
+    public ResponseEntity<DtoListValidate> addUser(@Validated @RequestBody  DtoUser dtoUser){
+        DtoListValidate infoValidate = new DtoListValidate();
+        LinkedList<ResultsRequests> checkInfo = serviceValidate.validateDtoObject(dtoUser);
+        infoValidate.setInfo(serviceValidate.validateDtoObject(dtoUser));
 
-        workService.addNewUser(dtoUser);
-return new ResponseEntity<>("OK", HttpStatus.OK);
+        if(checkInfo.size()>0){
+            return new ResponseEntity<DtoListValidate>(infoValidate, HttpStatus.BAD_REQUEST);
+        }else{
+        workService.addNewUser(dtoUser);}
+
+return new ResponseEntity<DtoListValidate>(infoValidate, HttpStatus.OK);
     }
 
     /**

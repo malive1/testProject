@@ -16,8 +16,9 @@ import java.util.regex.Pattern;
 @Component
 public class ServiceValidate {
 
-    private static final Pattern EMAIL_PATTERN =Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
-            "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}");
+    private static final Pattern FIO_PATTERN = Pattern.compile("[a-zA-Z]+");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^\\+[\\(\\-]?(\\d[\\(\\)\\-]?){10}\\d$");
 
     public LinkedList<ResultsRequests> validateDtoObject(DtoUser checkObject){
 
@@ -32,8 +33,28 @@ public class ServiceValidate {
 
         //check email
         Matcher matcher=EMAIL_PATTERN.matcher(checkObject.getEmail());
-       if(!matcher.matches()){resultsRequests.add(new ResultsRequests(checkObject.toString(),"Неверный формат почты."));}
+       if(!matcher.matches()){resultsRequests.add(new ResultsRequests("MAIL","Неверный формат почты."));}
 
+       //Check Name
+        Matcher matcherName = FIO_PATTERN.matcher(checkObject.getName());
+        if(!matcherName.matches()){resultsRequests.add(new ResultsRequests("NAME","Имя не соответсвует парметрам."));}
+
+        //Check Surname
+        Matcher matcherSurname = FIO_PATTERN.matcher(checkObject.getSurname());
+        if(!matcherSurname.matches()){resultsRequests.add(new ResultsRequests("SURNAME","Фамилия не соответсвует парметрам."));}
+
+        //Check MiddleName
+        Matcher matcherMiddleName = FIO_PATTERN.matcher(checkObject.getMiddleName());
+        if(!matcherMiddleName.matches()){resultsRequests.add(new ResultsRequests("MIDDLENAME","Отчество не соответсвует парметрам."));}
+
+        //check phone
+        Matcher matcherPhone = PHONE_PATTERN.matcher(checkObject.getPhone());
+        if(!matcherPhone.matches()){resultsRequests.add(new ResultsRequests("PHONE","Неверный номер телефона."));}
+
+        //check password
+        if(!checkObject.getPassword().equals(checkObject.getCheckPassword())){
+            resultsRequests.add(new ResultsRequests("PASSWORD","Пароли не совпадают."));
+        }
 
         return resultsRequests;
         }
