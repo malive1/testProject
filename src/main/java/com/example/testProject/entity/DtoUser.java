@@ -36,7 +36,7 @@ public class DtoUser {
     @Pattern(regexp = "\\+7[0-9]{10}", message = "Пример номера: +7(XXX)NNNNNNN. XXX - код оператора, NNNNNNN - номер телефона.")
     String phone;
 
-    @NonNull
+
     @Email(message = "Поле должно содержать @ .")
     String email;
 

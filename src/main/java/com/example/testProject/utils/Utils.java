@@ -23,7 +23,7 @@ public class Utils {
      * @param inList - events list
      * @return - result string
      */
-    public String listAggInfo(LinkedList<ResultsRequests> inList) {
+    public String listAggInfo(List<ResultsRequests> inList) {
         String rez = "";
         Iterable<String> listRez = Iterables.transform(inList,
                 new Function<ResultsRequests, String>() {

@@ -43,11 +43,11 @@ public class ServiceValidate {
 
        //Check Name
         Matcher matcherName = FIO_PATTERN.matcher(checkObject.getName());
-        if(!matcherName.matches()){resultsRequests.add(new ResultsRequests("NAME","Имя не соответсвует парметрам."));}
+        if(!matcher.matches()){resultsRequests.add(new ResultsRequests("NAME","Имя не соответсвует парметрам."));}
 
         //Check Surname
         Matcher matcherSurname = FIO_PATTERN.matcher(checkObject.getSurname());
-        if(!matcherSurname.matches()){resultsRequests.add(new ResultsRequests("SURNAME","Фамилия не соответсвует парметрам."));}
+        if(!matcher.matches()){resultsRequests.add(new ResultsRequests("SURNAME","Фамилия не соответсвует парметрам."));}
 
         //Check MiddleName
         Matcher matcherMiddleName = FIO_PATTERN.matcher(checkObject.getMiddleName());
