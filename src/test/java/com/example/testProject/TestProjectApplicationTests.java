@@ -13,9 +13,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -37,6 +40,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ContextConfiguration
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+
 @TestMethodOrder(MethodOrderer.Alphanumeric.class)
 class TestProjectApplicationTests {
 
@@ -95,7 +102,7 @@ class TestProjectApplicationTests {
 	@Order(3)
 	void addTest() throws Exception {
 
-		/*MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/addUser")
+		MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/addUser")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{\n" +
 						"  \"checkPassword\": \"123456\",\n" +
@@ -110,7 +117,7 @@ class TestProjectApplicationTests {
 		String message = requireNonNull(response.getResolvedException(), "Не получено сообщение от контроллера").getMessage();
 		assertTrue(message.contains("can't parse JSON.  Raw result:\n" +
 				"\n" +
-				"ERROR"));*/
+				"ERROR"));
 	}
 
 }
