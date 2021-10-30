@@ -1,23 +1,10 @@
 package com.example.testProject.service;
 
-import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
-import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author pavel
@@ -59,9 +46,8 @@ public class ErrorService {
     public ResponseEntity<String> processException(org.springframework.http.converter.HttpMessageNotReadableException exception) {
 
 
-        System.out.println("test ->>> " + exception.getClass());
-        workService.addErrValidInfo("Не инициализированная переменная (отсутствует поле): "+ exception.getLocalizedMessage());
-        //workService.addErrValidInfo(exception.getLocalizedMessage());
+        workService.addErrValidInfo("Не инициализированная переменная (отсутствует поле): " + exception.getLocalizedMessage());
+
         return new ResponseEntity<>("ERROR", HttpStatus.BAD_REQUEST);
     }
 

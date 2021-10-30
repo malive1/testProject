@@ -43,15 +43,15 @@ public class ServiceValidate {
 
        //Check Name
         Matcher matcherName = FIO_PATTERN.matcher(checkObject.getName());
-        if(!matcherName.matches()){resultsRequests.add(new ResultsRequests("NAME","Имя не соответсвует парметрам."));}
+        if(!matcherName.matches()){resultsRequests.add(new ResultsRequests("NAME","Имя не соответсвует параметрам."));}
 
         //Check Surname
         Matcher matcherSurname = FIO_PATTERN.matcher(checkObject.getSurname());
-        if(!matcherSurname.matches()){resultsRequests.add(new ResultsRequests("SURNAME","Фамилия не соответсвует парметрам."));}
+        if(!matcherSurname.matches()){resultsRequests.add(new ResultsRequests("SURNAME","Фамилия не соответсвует параметрам."));}
 
         //Check MiddleName
         Matcher matcherMiddleName = FIO_PATTERN.matcher(checkObject.getMiddleName());
-        if(!matcherMiddleName.matches()){resultsRequests.add(new ResultsRequests("MIDDLENAME","Отчество не соответсвует парметрам."));}
+        if(!matcherMiddleName.matches()){resultsRequests.add(new ResultsRequests("MIDDLENAME","Отчество не соответсвует параметрам."));}
 
         //check phone
         Matcher matcherPhone = PHONE_PATTERN.matcher(checkObject.getPhone());
