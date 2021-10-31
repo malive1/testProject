@@ -16,6 +16,8 @@ import javax.validation.constraints.Pattern;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
+    int id;
+
     String surname;
 
     String name;

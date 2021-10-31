@@ -83,4 +83,14 @@ public class MainController {
 
         return workService.getViewList();
     }
+
+    /**
+     * Return User  for front.
+     * @return - DtoUser
+     */
+    @GetMapping(value = "/getInfoUser/{id}", produces = "application/json")
+    public DtoUser getInfoUser(@PathVariable int id) {
+
+        return workService.getUser(id);
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.testProject.service;
 
-import com.example.testProject.entity.DtoUser;
-import com.example.testProject.entity.ResultsRequests;
-import com.example.testProject.entity.RowInfo;
-import com.example.testProject.entity.User;
+import com.example.testProject.entity.*;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -15,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author pavel
@@ -63,8 +61,12 @@ public class WorkService {
      * @param inUser - DtoUser object
      */
     public void addNewUser(DtoUser inUser) {
+
+        int idNum = listUser.size();
+
         refreshHistoryEventIfo();
         User usrTmp = new User();
+        usrTmp.setId(idNum);
         usrTmp.setEmail(inUser.getEmail());
         usrTmp.setName(inUser.getName());
         usrTmp.setSurname(inUser.getSurname());
@@ -118,17 +120,33 @@ public class WorkService {
 
         int num = 0;
         while (listUser.size() > num) {
-            DtoUser tmpUser = new DtoUser(listUser.get(num).getSurname(),
+            DtoUser tmpUser = new DtoUser(listUser.get(num).getId(),listUser.get(num).getSurname(),
                     listUser.get(num).getName(), listUser.get(num).getMiddleName(), listUser.get(num).getPhone(), listUser.get(num).getEmail(),
                     "******", "******");
-            System.out.println(listUser.get(num));
+
             viewList.add(tmpUser);
             num++;
         }
 
 
-        System.out.println("_____________________________________-");
+
         return viewList;
     }
+
+    /**
+     *Get user.
+     */
+    public DtoUser getUser(int id){
+
+        User usrTmp = listUser.get(id);
+        DtoUser dUser=null;
+        if(usrTmp !=null)
+        {
+         dUser =  new DtoUser(usrTmp.getId(),usrTmp.getSurname(),
+                usrTmp.getName(), usrTmp.getMiddleName(), usrTmp.getPhone(), usrTmp.getEmail(),
+                "******", "******");}
+        return dUser;
+    }
+
 
 }

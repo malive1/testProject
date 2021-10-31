@@ -20,6 +20,9 @@ import javax.validation.constraints.Pattern;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Validated
 public class DtoUser {
+
+    int id;
+
     @NonNull
     @Pattern(regexp = "\\p{L}+", message = "Только буквы.")
     String surname;

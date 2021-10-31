@@ -61,7 +61,7 @@ class TestProjectApplicationTests {
 	void validateNullableCheckTest() {
 
 		Throwable thrown = catchThrowable(() -> {
-			DtoUser testDto = new DtoUser(null, "test",
+			DtoUser testDto = new DtoUser(1,null, "test",
 					"test", "+79780000000","email@server.com","123456","123456");
 
 		});
@@ -75,7 +75,7 @@ class TestProjectApplicationTests {
 	@Test
 	@Order(2)
 	void validateServiceTest() {
-		DtoUser testDto = new DtoUser("test", "t123est",
+		DtoUser testDto = new DtoUser(1,"test", "t123est",
 				"test", "+79780000000","emailserver.com","123456y","123456");
 
 
