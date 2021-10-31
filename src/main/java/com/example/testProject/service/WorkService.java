@@ -134,7 +134,7 @@ public class WorkService {
     }
 
     /**
-     *Get user.
+     *Get user by id.
      */
     public DtoUser getUser(int id){
 
