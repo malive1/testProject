@@ -48,6 +48,7 @@ public class MainController {
         LinkedList<ResultsRequests> checkInfo = serviceValidate.validateDtoObject(dtoUser);
         infoValidate.setInfo(serviceValidate.validateDtoObject(dtoUser));
 
+        workService.refreshHistoryEventIfo();
 
         if (checkInfo.size() > 0) {
 

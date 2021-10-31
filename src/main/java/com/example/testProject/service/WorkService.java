@@ -64,7 +64,7 @@ public class WorkService {
 
         int idNum = listUser.size();
 
-        refreshHistoryEventIfo();
+
         User usrTmp = new User();
         usrTmp.setId(idNum);
         usrTmp.setEmail(inUser.getEmail());
@@ -106,6 +106,12 @@ public class WorkService {
         //clear start info in result requests
         if ((resultsRequests.size() >= 1) && (resultsRequests.getFirst().getValueKeyData().equals("EMPTY"))) {
             resultsRequests.removeFirst();
+        }
+
+        //clear old records. Store last 3 events
+        if (resultsRequests.size() > 2) {
+            resultsRequests.removeFirst();
+
         }
 
 
