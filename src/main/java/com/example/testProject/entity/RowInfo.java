@@ -1,17 +1,18 @@
 package com.example.testProject.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @author pavel
- * Return list this info requests and results.
+ * Row info for list requests rezults.
  */
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class DtoInfoList {
-    List<RowInfo> listInfo;
+public class RowInfo {
+    int id;
+    String value;
 }

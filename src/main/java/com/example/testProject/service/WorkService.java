@@ -2,12 +2,17 @@ package com.example.testProject.service;
 
 import com.example.testProject.entity.DtoUser;
 import com.example.testProject.entity.ResultsRequests;
+import com.example.testProject.entity.RowInfo;
 import com.example.testProject.entity.User;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,16 +41,18 @@ public class WorkService {
      *
      * @return - list this info
      */
-    public List<String> getInfo() {
+    public List<RowInfo> getInfo() {
 
-        Iterable<String> listRez = Iterables.transform(resultsRequests,
-                new Function<ResultsRequests, String>() {
-                    public String apply(ResultsRequests from) {
-                        return from.getResultInformation();
-                    }
-                });
 
-        List<String> actualList = Lists.newArrayList(listRez);
+        List<RowInfo> actualList = new LinkedList<>();
+        int indexRow = 0;
+
+        for (ResultsRequests value : resultsRequests) {
+
+            actualList.add(new RowInfo(indexRow, value.getResultInformation()));
+            indexRow++;
+        }
+
         return actualList;
     }
 
@@ -100,6 +107,28 @@ public class WorkService {
         }
 
 
+    }
+
+    /**
+     * For front. Return Dto list users - set password to ******.
+     * @return - List<DtoUser> this ****** password and checkpassword.
+     */
+    public List<DtoUser> getViewList() {
+        List<DtoUser> viewList = new LinkedList<>();
+
+        int num = 0;
+        while (listUser.size() > num) {
+            DtoUser tmpUser = new DtoUser(listUser.get(num).getSurname(),
+                    listUser.get(num).getName(), listUser.get(num).getMiddleName(), listUser.get(num).getPhone(), listUser.get(num).getEmail(),
+                    "******", "******");
+            System.out.println(listUser.get(num));
+            viewList.add(tmpUser);
+            num++;
+        }
+
+
+        System.out.println("_____________________________________-");
+        return viewList;
     }
 
 }

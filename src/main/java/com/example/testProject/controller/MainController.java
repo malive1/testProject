@@ -1,9 +1,6 @@
 package com.example.testProject.controller;
 
-import com.example.testProject.entity.DtoInfoList;
-import com.example.testProject.entity.DtoListValidate;
-import com.example.testProject.entity.DtoUser;
-import com.example.testProject.entity.ResultsRequests;
+import com.example.testProject.entity.*;
 import com.example.testProject.service.ServiceValidate;
 import com.example.testProject.service.WorkService;
 import com.example.testProject.utils.Utils;
@@ -14,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -24,6 +22,7 @@ import java.util.LinkedList;
 @RestController
 @Validated
 @RequestMapping("/test/service")
+@CrossOrigin
 public class MainController {
     private final WorkService workService;
 
@@ -69,9 +68,19 @@ public class MainController {
      * @return - JSON list<String>
      */
     @GetMapping(value = "/getInfo", produces = "application/json")
-    public ResponseEntity<DtoInfoList> getInfo() {
+    public List<RowInfo> getInfo() {
         DtoInfoList info = new DtoInfoList();
         info.setListInfo(workService.getInfo());
-        return new ResponseEntity<>(info, HttpStatus.OK);
+        return info.getListInfo();
+    }
+
+    /**
+     * Return UserList data for front.
+     * @return - List<DtoUser>
+     */
+    @GetMapping(value = "/getInfoUsersAll", produces = "application/json")
+    public List<DtoUser> getInfoUsers() {
+
+        return workService.getViewList();
     }
 }
